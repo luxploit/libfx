@@ -1,0 +1,9 @@
+[submodule "vendor/libtommath"]
+	path = vendor/libtommath
+	url = https://github.com/libtom/libtommath.git
+[submodule "vendor/libtomcrypt"]
+	path = vendor/libtomcrypt
+	url = https://github.com/libtom/libtomcrypt.git
+[submodule "vendor/lz4"]
+	path = vendor/lz4
+	url = https://github.com/lz4/lz4

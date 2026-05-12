@@ -1,0 +1,30 @@
+Diagnostics:
+    UnusedIncludes: None
+CompileFlags:
+    Add:
+        [
+            -Wno-c++17-extensions,
+            -Wno-c++26-extensions,
+            -Wno-invalid-token-paste,
+            -Wno-microsoft-cast,
+            -Wno-microsoft-string-literal-from-predefined,
+            --driver-mode=cl,
+            -fms-extensions,
+            -fms-compatibility,
+            -fms-compatibility-version=19.44,
+        ]
+Completion:
+    HeaderInsertion: Never
+
+---
+If:
+    PathMatch:
+        - vendor/.*
+        - src/common/kiero/.*
+        - src/common/nlohmann/.*
+        - src/common/scylla/.*
+
+Diagnostics:
+    Suppress: "*"
+    ClangTidy:
+        Remove: "*"
