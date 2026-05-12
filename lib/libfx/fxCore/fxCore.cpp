@@ -2,7 +2,7 @@
 
 void fxCore::init() {
 	if (fxCore::initialized_) {
-		fxPrintf(fxLogWarn, "Tried to call init() without calling quit() first!");
+		return fxPrintf(fxLogWarn, "Tried to call init() without calling quit() first!");
 	}
 
 	fxCore::initialized_ = true;
@@ -10,7 +10,7 @@ void fxCore::init() {
 
 void fxCore::quit() {
 	if (!fxCore::initialized_) {
-		fxPrintf(fxLogWarn, "Tried to call quit() without calling init() first!");
+		return fxPrintf(fxLogWarn, "Tried to call quit() without calling init() first!");
 	}
 
 	fxSingletonRegistry::get()->clean_up();

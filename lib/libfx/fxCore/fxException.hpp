@@ -16,6 +16,6 @@ public:
 };
 
 template <typename... Args>
-[[noreturn]] void fxError(std::format_string<Args...> fmt, Args&&... args) {
+[[noreturn]] inline void fxError(std::format_string<Args...> fmt, Args&&... args) {
     throw fxException(std::format(fmt, std::forward<Args>(args)...));
 }
