@@ -5,7 +5,10 @@
 #include <functional>
 #include <source_location>
 #include <string>
-#include <format>
+
+#include <fmt/core.h>
+#include <fmt/format.h>
+#include <fmt/printf.h>
 
 enum fxLoggingChannels {
 	fxLogInfo,   fxLogWarn,
@@ -24,12 +27,13 @@ void fxSetLoggingChannelsHandler(fxLoggingChannelsHandler cb) noexcept;
 void fxPrintfImpl(fxLoggingChannels ch, const std::string& message, const std::source_location& loc) noexcept;
 
 template <typename... Args>
-void fxPrintf(fxLoggingChannels ch, const std::string& format, Args const &...args,
-	const std::source_location& loc = std::source_location::current()) noexcept
+void fxPrintfEx(const std::source_location& loc, fxLoggingChannels ch, const char* format, Args&&... args) noexcept
 {
-	auto message = std::vformat(format, std::make_format_args(args...));
+	auto message = fmt::sprintf(format, std::forward<Args>(args)...);
 	return fxPrintfImpl(ch, message, loc);
 }
+
+#define fxPrintf(ch, msg, ...) fxPrintfEx(std::source_location::current(), ch, msg, __VA_ARGS__)
 #else
 #define fxPrintf(...) ((void)0)
 #endif

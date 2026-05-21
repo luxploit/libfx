@@ -171,3 +171,4 @@ tools/game/*.json
 /.xmake/
 src/client-*/resources/zpCrashHandler.exe
 tools/**/__pycache__
+cppcheck/

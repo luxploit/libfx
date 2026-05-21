@@ -11,7 +11,7 @@ libfx_lib = static_library('libfx',
 		include_directories('../generated'),
 	],
 	dependencies: [
-		libtommath_dep, libtomcrypt_dep, lz4_dep
+		libtommath_dep, libtomcrypt_dep, lz4_dep, fmt_dep
 	],
 	cpp_args: ['-DLTM_DESC', '-D_ALLOW_COMPILER_AND_STL_VERSION_MISMATCH'],
 	override_options: ['cpp_std=c++latest'],
@@ -25,6 +25,6 @@ libfx_dep = declare_dependency(
 		include_directories('../generated'),
 	],
 	dependencies: [
-
+		libtommath_dep, libtomcrypt_dep, lz4_dep, fmt_dep
 	],
 )

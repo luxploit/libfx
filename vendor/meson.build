@@ -267,17 +267,6 @@ libtomcrypt_sources = files(
 	'libtomcrypt/src/encauth/gcm/gcm_process.c',
 	'libtomcrypt/src/encauth/gcm/gcm_reset.c',
 	'libtomcrypt/src/encauth/gcm/gcm_test.c',
-	'libtomcrypt/src/encauth/ocb/ocb_decrypt.c',
-	'libtomcrypt/src/encauth/ocb/ocb_decrypt_verify_memory.c',
-	'libtomcrypt/src/encauth/ocb/ocb_done_decrypt.c',
-	'libtomcrypt/src/encauth/ocb/ocb_done_encrypt.c',
-	'libtomcrypt/src/encauth/ocb/ocb_encrypt.c',
-	'libtomcrypt/src/encauth/ocb/ocb_encrypt_authenticate_memory.c',
-	'libtomcrypt/src/encauth/ocb/ocb_init.c',
-	'libtomcrypt/src/encauth/ocb/ocb_ntz.c',
-	'libtomcrypt/src/encauth/ocb/ocb_shift_xor.c',
-	'libtomcrypt/src/encauth/ocb/ocb_test.c',
-	'libtomcrypt/src/encauth/ocb/s_ocb_done.c',
 	'libtomcrypt/src/encauth/ocb3/ocb3_add_aad.c',
 	'libtomcrypt/src/encauth/ocb3/ocb3_decrypt.c',
 	'libtomcrypt/src/encauth/ocb3/ocb3_decrypt_last.c',
@@ -771,8 +760,26 @@ lz4_dep = declare_dependency(
 )
 
 # =============================================================================
-# ZeroBlue (header-only, C++)
+# lz4 (static, C++)
 # =============================================================================
-zeroblue_dep = declare_dependency(
-	include_directories: include_directories('ZeroBlue/src')
+fmt_inc = [
+	include_directories('fmt/include'),
+]
+
+fmt_sources = files(
+	'fmt/src/fmt-c.cc',
+	'fmt/src/format.cc',
+	'fmt/src/os.cc',
+)
+
+fmt_lib = static_library('fmt',
+	sources: fmt_sources,
+	include_directories: fmt_inc,
+	override_options: ['warning_level=0'],
+	name_prefix: ''
+)
+
+fmt_dep = declare_dependency(
+	link_with: fmt_lib,
+	include_directories: fmt_inc
 )

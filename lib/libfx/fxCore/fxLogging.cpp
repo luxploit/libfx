@@ -2,11 +2,13 @@
 #include "fxAnsi.hpp"
 
 #include <ctime>
-#include <format>
 #include <iostream>
 #include <iomanip>
 #include <istream>
 #include <sstream>
+
+#include <fmt/core.h>
+#include <fmt/format.h>
 
 #ifndef FX_DISABLE_LOGGING
 
@@ -46,15 +48,15 @@ void fxSetLoggingChannelsHandler(fxLoggingChannelsHandler cb) noexcept {
 }
 
 void fxBuiltinLog(fxLoggingChannels ch, const std::string& message, const std::source_location& loc) noexcept {
-	tm local_time;
+	tm local_time{};
 	const time_t time_since_epoch = std::time(nullptr);
 	localtime_s(&local_time, &time_since_epoch);
 
-	const auto console_timestamp = std::format("[{:0>2}:{:0>2}:{:0>2}]", local_time.tm_hour, local_time.tm_min, local_time.tm_sec);
+	const auto console_timestamp = fmt::format("[{:0>2}:{:0>2}:{:0>2}]", local_time.tm_hour, local_time.tm_min, local_time.tm_sec);
 	const auto channel_color = fxGetChannelColor(ch);
 	const auto channel_name = fxGetChannelName(ch);
 
-	const auto prefix = std::format("{}{:>6}{} {} {} in {} (line:{})",
+	const auto prefix = fmt::format("{}{:>6}{} {} {} in {} (line:{})",
 		channel_color, channel_name, FX_ANSI_RESET, console_timestamp,
 		loc.function_name(), loc.file_name(), loc.line()
 	);

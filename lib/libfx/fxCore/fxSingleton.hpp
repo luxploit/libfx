@@ -32,14 +32,14 @@ public:
 
 using fxSingletonCleanupCallback = std::function<void()>;
 
-class fxSingletonRegistryCore {
+class fxSingletonRegistryInternal {
 	std::atomic<bool> cleaning_up_;
 	std::vector<fxSingletonCleanupCallback> cleanup_list_;
 
 protected:
-	friend class fxSingleton<fxSingletonRegistryCore>;
+	friend class fxSingleton<fxSingletonRegistryInternal>;
 
-	fxSingletonRegistryCore()
+	fxSingletonRegistryInternal()
 		: cleaning_up_(false)
 	{}
 public:
@@ -55,13 +55,13 @@ public:
 
 	void clean_up() noexcept {
 		this->cleaning_up_ = true;
-		for (auto& dtor : this->cleanup_list_) {
+		for (const auto& dtor : this->cleanup_list_) {
 			dtor();
 		}
 	}
 };
 
-class fxSingletonRegistry : public fxSingleton<fxSingletonRegistryCore> {
+class fxSingletonRegistry : public fxSingleton<fxSingletonRegistryInternal> {
 protected:
 	fxSingletonRegistry() = default;
 };

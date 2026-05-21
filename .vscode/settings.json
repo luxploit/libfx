@@ -135,5 +135,7 @@
 		"**/vendor/.xmake/*.lua": "xmake"
 	},
 	"cmake.sourceDirectory": "G:/Projects/GitHub/Zero-Mods/ZeroProxy/vendor/asmjit",
-	"mesonbuild.configureOnOpen": false
+	"mesonbuild.configureOnOpen": false,
+	"cppcheck-official.arguments": "--project=\"${workspaceFolder}/libfx.cppcheck\"",
+	"cppcheck-official.minSeverity": "info"
 }

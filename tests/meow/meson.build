@@ -8,7 +8,7 @@ test_meow = executable('test_meow',
 	sources: test_meow_sources,
 	include_directories: [
 		include_directories('.'),
-		include_directories('../generated'),
+		include_directories('../../generated'),
 	],
 	dependencies: [libfx_dep],
 	override_options: ['cpp_std=c++latest'],
