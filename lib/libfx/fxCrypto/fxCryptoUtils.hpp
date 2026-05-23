@@ -104,7 +104,7 @@ struct fxCryptoUtils : fxSingleton<fxCryptoUtils> {
 	}
 };
 
-#define TOMCRYPT_ASSERT(errc, msg, def)                        \
+#define FX_TOMCRYPT_ASSERT(errc, msg, def)                        \
 	if (errc != CRYPT_OK) {                                    \
 		fxPrintf(fxLogError, msg " error code: %s",            \
 			fxCryptoUtils::get()->get_tomcrypt_ec_string(errc) \

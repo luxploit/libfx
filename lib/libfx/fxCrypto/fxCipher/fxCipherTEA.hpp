@@ -46,7 +46,7 @@ public:
 
         // 32 is the standard number of rounds for TEA (64 Feistel cycles)
         auto errc = cbc_start(find_cipher("tea"), dummy_iv, key, keylen, 32, &this->cbc_);
-        TOMCRYPT_ASSERT(errc, "TEA-CBC start failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "TEA-CBC start failed!", {})
 
         this->initialized_ = true;
         return true;
@@ -66,7 +66,7 @@ public:
         std::vector<std::uint8_t> ciphertext(pt_len);
 
         auto errc = cbc_encrypt(plaintext, ciphertext.data(), pt_len, &this->cbc_);
-        TOMCRYPT_ASSERT(errc, "TEA-CBC encrypt failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "TEA-CBC encrypt failed!", {})
         return ciphertext;
     }
 
@@ -84,7 +84,7 @@ public:
         std::vector<std::uint8_t> plaintext(ct_len);
 
         auto errc = cbc_decrypt(ciphertext, plaintext.data(), ct_len, &this->cbc_);
-        TOMCRYPT_ASSERT(errc, "TEA-CBC decrypt failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "TEA-CBC decrypt failed!", {})
         return plaintext;
     }
 

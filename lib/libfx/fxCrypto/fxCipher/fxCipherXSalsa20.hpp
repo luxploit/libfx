@@ -51,12 +51,12 @@ public:
         // XSalsa20 fundamentally requires the IV during setup because it uses
         // the first 16 bytes of the 24-byte nonce to derive a subkey via HSalsa20.
         auto errc = xsalsa20_setup(&this->state_, this->key_storage.data(), 32, iv, 24, this->rounds_);
-        TOMCRYPT_ASSERT(errc, "XSalsa20 setup failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "XSalsa20 setup failed!", {})
 
         // Once setup with the IV is complete, it behaves like standard Salsa20
         std::vector<std::uint8_t> ciphertext(pt_len);
         errc = salsa20_crypt(&this->state_, plaintext, pt_len, ciphertext.data());
-        TOMCRYPT_ASSERT(errc, "XSalsa20 encrypt failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "XSalsa20 encrypt failed!", {})
 
         return ciphertext;
     }

@@ -41,7 +41,7 @@ public:
         }
 
         auto errc = chacha_setup(&this->state_, key, keylen, 20);
-        TOMCRYPT_ASSERT(errc, "ChaCha20 setup failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "ChaCha20 setup failed!", {})
 
         this->initialized_ = true;
         return true;
@@ -59,11 +59,11 @@ public:
 
         // Set IV and initial counter (0). Assumes standard 12-byte IETF nonce.
         auto errc = chacha_ivctr32(&this->state_, iv, 12, 0);
-        TOMCRYPT_ASSERT(errc, "ChaCha20 IV setup failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "ChaCha20 IV setup failed!", {})
 
         std::vector<std::uint8_t> ciphertext(pt_len);
         errc = chacha_crypt(&this->state_, plaintext, pt_len, ciphertext.data());
-        TOMCRYPT_ASSERT(errc, "ChaCha20 encrypt failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "ChaCha20 encrypt failed!", {})
 
         return ciphertext;
     }

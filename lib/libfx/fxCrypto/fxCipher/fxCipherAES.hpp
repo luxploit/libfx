@@ -42,7 +42,7 @@ public:
 
         std::uint8_t dummy_iv[16] = {0};
         auto errc = cbc_start(find_cipher("aes"), dummy_iv, key, keylen, 0, &this->cbc_);
-        TOMCRYPT_ASSERT(errc, "AES-CBC start failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "AES-CBC start failed!", {})
 
         this->initialized_ = true;
         return true;
@@ -62,7 +62,7 @@ public:
         std::vector<std::uint8_t> ciphertext(pt_len);
 
         auto errc = cbc_encrypt(plaintext, ciphertext.data(), pt_len, &this->cbc_);
-        TOMCRYPT_ASSERT(errc, "AES-CBC encrypt failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "AES-CBC encrypt failed!", {})
         return ciphertext;
     }
 
@@ -80,7 +80,7 @@ public:
         std::vector<std::uint8_t> plaintext(ct_len);
 
         auto errc = cbc_decrypt(ciphertext, plaintext.data(), ct_len, &this->cbc_);
-        TOMCRYPT_ASSERT(errc, "AES-CBC decrypt failed!", {})
+        FX_TOMCRYPT_ASSERT(errc, "AES-CBC decrypt failed!", {})
         return plaintext;
     }
 
