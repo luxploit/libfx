@@ -70,7 +70,7 @@ public:
         return ciphertext;
     }
 
-	[[nodiscard]] std::vector<std::uint8_t> encrypt(const std::vector<std::uint8_t> iv, const std::vector<std::uint8_t> plaintext) noexcept {
+	[[nodiscard]] std::vector<std::uint8_t> encrypt(const std::vector<std::uint8_t>& iv, const std::vector<std::uint8_t>& plaintext) noexcept {
 		return this->encrypt(iv.data(), plaintext.data(), plaintext.size());
 	}
 
@@ -88,7 +88,7 @@ public:
         return plaintext;
     }
 
-	[[nodiscard]] std::vector<std::uint8_t> decrypt(const std::vector<std::uint8_t> iv, const std::vector<std::uint8_t> ciphertext) noexcept {
+	[[nodiscard]] std::vector<std::uint8_t> decrypt(const std::vector<std::uint8_t>& iv, const std::vector<std::uint8_t>& ciphertext) noexcept {
 		return this->decrypt(iv.data(), ciphertext.data(), ciphertext.size());
 	}
 };

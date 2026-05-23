@@ -10,3 +10,6 @@
 
 //& #define FX_DISABLE_CRYPTO
 /// Disables the fxCrypto module
+
+//& #define FX_DISABLE_LZ4_COMPRESSION
+/// Disables the fxMisc compression module
