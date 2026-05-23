@@ -5,6 +5,10 @@ void fxBootstrap::init() {
 		return fxPrintf(fxLogWarn, "Tried to call init() without calling quit() first!");
 	}
 
+#ifndef FX_DISABLE_CRYPTO
+	fxCryptoUtils::get()->init_ltc();
+#endif
+
 	fxBootstrap::initialized_ = true;
 }
 

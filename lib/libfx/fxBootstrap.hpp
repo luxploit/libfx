@@ -8,7 +8,7 @@
 #include <libfx/fxCore/fxSingleton.hpp>
 
 #ifndef FX_DISABLE_CRYPTO
-#include <libfx/fxCrypto/fxCipher.hpp>
+#include <libfx/fxCrypto/fxCryptoUtils.hpp>
 #endif
 
 #define FX_VERSION "0.0.0"
