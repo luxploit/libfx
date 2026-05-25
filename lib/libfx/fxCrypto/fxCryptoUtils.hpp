@@ -2,6 +2,7 @@
 
 #include <libfx/fxConfig.hpp>
 #include <libfx/fxCore/fxSingleton.hpp>
+#include <libfx/fxCore/fxMacros.hpp>
 
 #include <istream>
 #include <random>
@@ -27,14 +28,22 @@ struct fxCryptoUtils : fxSingleton<fxCryptoUtils> {
 	}
 
 	std::string dump_hex(const std::string& data, const std::string& separator = "") {
-		std::string result;
+		if (data.empty()) {
+			return {};
+		}
 
-		for (std::uint32_t i = 0; i < data.size(); ++i) {
-			if (i > 0) {
+		const std::size_t hex_size = data.size() * 2;
+		const std::size_t sep_size = separator.size() * (data.size() - 1);
+
+		std::string result;
+		result.reserve(hex_size + sep_size);
+
+		for (std::size_t i = 0; i < data.size(); ++i) {
+			if (i != 0 && !separator.empty()) {
 				result.append(separator);
 			}
 
-			result.append(std::format("{:02X}", data[i] & 0xFF));
+			fmt::format_to(std::back_inserter(result), "{:02X}", FX_VAL_AS(unsigned char, data[i]));
 		}
 
 		return result;
@@ -42,9 +51,10 @@ struct fxCryptoUtils : fxSingleton<fxCryptoUtils> {
 
 	template <typename T>
 	std::string to_hex(T i) {
-		std::stringstream stream;
-		stream << "0x" << std::setfill ('0') << std::setw(sizeof(T) * 2) << std::hex << i;
-		return stream.str();
+		static_assert(std::is_integral_v<T> || std::is_enum_v<T>, "to_hex requires an integral or enum type");
+		using U = std::make_unsigned_t<std::underlying_type_t<T>>;
+
+		return fmt::format("0x{:0{}x}", FX_VAL_AS(U, i), sizeof(T) * 2);
 	}
 
 	void generate_entropy(fxCryptoEntropyParams params) {
