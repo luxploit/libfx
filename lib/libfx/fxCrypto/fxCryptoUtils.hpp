@@ -12,7 +12,7 @@
 
 #include "tomcrypt.h"
 
-struct fxCrpytoEntropyParams {
+struct fxCryptoEntropyParams {
 	std::string prng_name_;
 	prng_state* prng_state_;
 	std::function<void(const void*, const std::size_t)> prng_entropy_fn_;
@@ -47,7 +47,7 @@ struct fxCryptoUtils : fxSingleton<fxCryptoUtils> {
 		return stream.str();
 	}
 
-	void generate_entropy(fxCrpytoEntropyParams params) {
+	void generate_entropy(fxCryptoEntropyParams params) {
 		auto id = find_prng(params.prng_name_.c_str());
 		rng_make_prng(128, id, params.prng_state_, nullptr);
 
